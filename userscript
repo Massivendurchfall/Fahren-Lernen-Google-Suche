@@ -21,7 +21,7 @@
 
         const questionText = questionLabel.innerText.trim();
 
-
+        // Antworten: alle Labels innerhalb von .multiple-choice-answer
         const answerLabels = document.querySelectorAll(".multiple-choice-answer label.audio-label");
         const answerTexts = Array.from(answerLabels).map(label => label.innerText.trim());
 
@@ -31,13 +31,14 @@
             fullText += " " + answerTexts.join(" ");
         }
 
-
+        // Maximal 300 Zeichen (Google-Query-Limit-Schutz)
         const searchQuery = fullText.replace(/\s+/g, ' ').substring(0, 300);
         const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
 
         window.open(googleUrl, '_blank');
     }
 
+    // Button erstellen
     const searchButton = document.createElement("button");
     searchButton.innerText = "";
     searchButton.style.position = "fixed";
@@ -59,6 +60,7 @@
         searchButton.style.backgroundColor = "#28a745";
     });
 
+    // Button einfügen
     document.body.appendChild(searchButton);
     searchButton.addEventListener("click", searchOnGoogle);
 })();
