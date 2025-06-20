@@ -1,2 +1,2 @@
 # Fahren-Lernen-Google-Suche
-Extrahiert Frage + Antworten und öffnet Google-Suche im neuen Tab, Funktioniert nur bei Prüfungssimulationen
+Erstellt ein kleinen Button in der Oberen rechten Ecke, Extrahiert die Frage + Antworten und öffnet die Extraierten Sachen im neuen Tab, Funktioniert nur bei Prüfungssimulationen
