@@ -1,0 +1,64 @@
+// ==UserScript==
+// @name         Fahren-Lernen Google-Suche made by Tapetenputzer
+// @namespace    https://github.com/Tapetenputzer
+// @version      1.0
+// @description  Extrahiert Frage + Antworten und öffnet Google-Suche im neuen Tab Funktioniert nur bei Prüfungssimulationen
+// @match        *://*fahren-lernen.de/*
+// @run-at       document-idle
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+
+    function searchOnGoogle() {
+        // Frage: erstes Label mit Klasse audio-label
+        const questionLabel = document.querySelector("label.audio-label");
+        if (!questionLabel) {
+            alert("Frage nicht gefunden");
+            return;
+        }
+
+        const questionText = questionLabel.innerText.trim();
+
+        // Antworten: alle Labels innerhalb von .multiple-choice-answer
+        const answerLabels = document.querySelectorAll(".multiple-choice-answer label.audio-label");
+        const answerTexts = Array.from(answerLabels).map(label => label.innerText.trim());
+
+        if (answerTexts.length === 0) {
+            alert("Antworten nicht gefunden");
+            return;
+        }
+
+        // Kombinieren und Google-URL bauen
+        const fullText = `${questionText} ${answerTexts.join(" ")}`.replace(/\s+/g, ' ').substring(0, 300);
+        const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(fullText)}`;
+        window.open(googleUrl, '_blank');
+    }
+
+    // Button erstellen
+    const searchButton = document.createElement("button");
+    searchButton.innerText = "";
+    searchButton.style.position = "fixed";
+    searchButton.style.top = "10px";
+    searchButton.style.right = "10px";
+    searchButton.style.zIndex = "9999";
+    searchButton.style.padding = "10px 15px";
+    searchButton.style.backgroundColor = "#28a745";
+    searchButton.style.color = "#fff";
+    searchButton.style.border = "none";
+    searchButton.style.borderRadius = "5px";
+    searchButton.style.cursor = "pointer";
+    searchButton.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
+
+    searchButton.addEventListener("mouseover", () => {
+        searchButton.style.backgroundColor = "#218838";
+    });
+    searchButton.addEventListener("mouseout", () => {
+        searchButton.style.backgroundColor = "#28a745";
+    });
+
+    // Button einfügen
+    document.body.appendChild(searchButton);
+    searchButton.addEventListener("click", searchOnGoogle);
+})();
