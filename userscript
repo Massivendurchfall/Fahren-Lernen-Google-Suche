@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Fahren-Lernen Google-Suche made by Tapetenputzer
-// @namespace    https://github.com/Tapetenputzer
-// @version      1.0
-// @description  Extrahiert Frage + Antworten und öffnet Google-Suche im neuen Tab Funktioniert nur bei Prüfungssimulationen
+// @name         Fahren-Lernen Google-Suche
+// @namespace    fahrenlernen-script
+// @version      1.1
+// @description  Extrahiert Frage + (optional) Antworten und öffnet Google-Suche im neuen Tab
 // @match        *://*fahren-lernen.de/*
 // @run-at       document-idle
 // @grant        none
@@ -25,14 +25,16 @@
         const answerLabels = document.querySelectorAll(".multiple-choice-answer label.audio-label");
         const answerTexts = Array.from(answerLabels).map(label => label.innerText.trim());
 
-        if (answerTexts.length === 0) {
-            alert("Antworten nicht gefunden");
-            return;
+        let fullText = questionText;
+
+        if (answerTexts.length > 0) {
+            fullText += " " + answerTexts.join(" ");
         }
 
-        // Kombinieren und Google-URL bauen
-        const fullText = `${questionText} ${answerTexts.join(" ")}`.replace(/\s+/g, ' ').substring(0, 300);
-        const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(fullText)}`;
+        // Maximal 300 Zeichen (Google-Query-Limit-Schutz)
+        const searchQuery = fullText.replace(/\s+/g, ' ').substring(0, 300);
+        const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(searchQuery)}`;
+
         window.open(googleUrl, '_blank');
     }
 
