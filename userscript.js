@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Fahren-Lernen Google-Suche
-// @namespace    https://github.com/Tapetenputzer/Fahren-Lernen-Google-Suche
+// @namespace    https://github.com/Massivendurchfall/Fahren-Lernen-Google-Suche
 // @version      1.1
 // @description  Extrahiert Frage + (optional) Antworten und öffnet Google-Suche im neuen Tab
 // @match        *://*fahren-lernen.de/*
