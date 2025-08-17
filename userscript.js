@@ -82,8 +82,8 @@
 
     // UI-Button
     const btn = document.createElement("button");
-    btn.innerText = "🔎";
-    btn.title = "Auf Google suchen (1 Tab, fokussiert: fuehrerschein-bestehen.de/Erklaerungen)";
+    btn.innerText = "click me daddy";
+    btn.title = "googelt lösung";
     Object.assign(btn.style, {
         position: "fixed",
         top: "10px",
